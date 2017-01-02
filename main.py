@@ -25,28 +25,28 @@ class Jobs:
 
 class Fila:
     '''Classe definida para organizar a tratar a fila de Jobs'''
-    def __init__(self, scheduling):
-        self.queue = []
-        self.scheduling = scheduling
-        if self.scheduling != "FCFS" and self.scheduling != "LCFS":
+    def __init__(self, escalonamento):
+        self.fila = []
+        self.escalonamento = escalonamento
+        if self.escalonamento != "FCFS" and self.escalonamento != "LCFS":
             raise Exception('Escalonamento não definido !!!')    
 
-    def getQueue(self):
-        if self.scheduling == "FCFS":
-            return self.queue.pop(0)
-        elif self.scheduling == "LCFS":
-            return self.queue.pop(len(self.queue)-1)
+    def getProximoDaFila(self):
+        if self.escalonamento == "FCFS":
+            return self.fila.pop(0)
+        elif self.escalonamento == "LCFS":
+            return self.fila.pop(len(self.fila)-1)
 
-    def addQueue(self, job):
-        self.queue.append(job)
-
-
+    def addFila(self, job):
+        self.fila.append(job)
 
 
 
 
 
-class Server:
+
+
+class Servidor:
     pass
 
 
