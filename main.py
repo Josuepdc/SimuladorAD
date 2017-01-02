@@ -6,10 +6,18 @@ Trabalho Final de AD 2016
 '''
 
 class Jobs:
-    pass
-'''classe
-trabalho residual'''
+    def __init__(self, classe):
+        self.classe = classe        
+        self.trabalhoResidual = 0
 
+    def setTrabalhoResidual(self, trabalhoResidual):
+        self.trabalhoResidual = trabalhoResidual
+
+    def getTrabalhoResidual(self):
+        return self.trabalhoResidual
+
+    def getClasse(self):
+        return self.classe
 
 
 
