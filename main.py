@@ -17,15 +17,18 @@ if __name__ == '__main__':
 	tempoDeSaida = 0
 
 	contadorIds = 0
-	escalonamento = "FCFS"
+	# escalonamento = "FCFS"
+	escalonamento = "LCFS"
 
 	'''=========================== CODIGO =========================== '''
 	fila = utils.Fila(escalonamento)
-	servidor = utils.Servidor(mu)
+	servidor = utils.Servidor()
 
 	'''======================= Inicializacao ======================== '''
 	proximoClasse1 = random.expovariate(1/lambda1)
-	tempoAteProximaChegada += proximoClasse1
+	# proximoClasse2 = random.expovariate(1/lambda2)
+	# if proximoClasse1 < proximoClasse2
+	# 	tempoAteProximaChegada += proximoClasse1
 	print(50*'-')
 	print("Tempo ate a proxima chegada: ", tempoAteProximaChegada)
 	contadorIds += 1
@@ -41,7 +44,7 @@ if __name__ == '__main__':
 			tam = fila.getTamanhoFila()
 			print ("Tamanho da Fila: ", tam)
 		else:
-			if tempoDeSaida != 0:
+			while tempoDeSaida != 0:
 				print("Job ", servidor.getJob().getID(), " terminou")
 				servidor.setJob(None)
 				if fila.getTamanhoFila() != 0:
@@ -60,6 +63,13 @@ if __name__ == '__main__':
 				else:
 					tempoDeSaida += tempoJob
 					print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
+				if tempoAteProximaChegada < tempoDeSaida:
+					print(50*'-')
+					fila.addFila(utils.Job(1, random.uniform(10,30), contadorIds))
+					print("Job ", contadorIds, " entrou na fila")
+					tam = fila.getTamanhoFila()
+					print ("Tamanho da Fila: ", tam)
+					break
 			else:
 				job = utils.Job(1, random.uniform(10,30), contadorIds)
 				fila.addFila(job)
@@ -80,6 +90,18 @@ if __name__ == '__main__':
 		print(50*'-')
 		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada)
 		contadorIds += 1
+
+
+
+
+
+
+
+
+
+
+
+
 		# else:
 		# 	fila.addFila(utils.Job(1, random.uniform(10,30), contadorIds))
 		# 	servidor.setJob(fila.getProximoDaFila())
@@ -90,9 +112,6 @@ if __name__ == '__main__':
 		# 	print("Tempo de servico: ", tempoJob)
 		# 	print("Classe: ", job.getClasse())
 		# 	print ("Tamanho da Fila: ", tam)
-
-
-
 
 
 		# tam = fila.getTamanhoFila()

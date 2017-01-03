@@ -61,8 +61,7 @@ class Fila:
 			return self.contadorClasse2
 
 class Servidor:
-	def __init__(self, mu):
-		self.mu = mu
+	def __init__(self):
 		self.tempoNoServidor = 0
 		self.job = None
 	# def setTempoNoServidor(self, job):
