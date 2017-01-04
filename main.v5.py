@@ -44,8 +44,24 @@ if __name__ == '__main__':
 	while True:
 		if (tempoAteProximaChegada < tempoDeSaida):
 			if (proximoClasse1 < proximoClasse2):
-				fila.addFila(utils.Job(1, random.uniform(10,30), contadorIds))
-				print("Job ", contadorIds, " entrou na fila e é da classe 1")
+				if (servidor.getJob().getClasse() == 2):
+					if (servidor.getJob() != None):
+						print ("O Job ", servidor.getJob().getID(), " foi retirado do servidor")
+						jobServidor = servidor.getJob()
+						jobServidor.setTrabalhoResidual(tempoDeSaida - tempoAteProximaChegada)
+						fila.addFila(servidor.getJob())
+					servidor.setJob(utils.Job(1, random.uniform(10,30), contadorIds))
+					job = servidor.getJob()
+					print("Job ", job.getID(), " entrou em servico")
+					tempoJob = job.getTempoDeServico()
+					tempoDeSaida = tempoAteProximaChegada + tempoJob
+					tam = fila.getTamanhoFila()
+					print("Tempo de servico: ", tempoJob)
+					print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
+					print("Classe: ", job.getClasse())
+				else:
+					fila.addFila(utils.Job(1, random.uniform(10,30), contadorIds))
+					print("Job ", contadorIds, " entrou na fila e é da classe 1")
 			else:
 				fila.addFila(utils.Job(2, random.uniform(10,30), contadorIds))
 				print("Job ", contadorIds, " entrou na fila e é da classe 2")
@@ -89,8 +105,24 @@ if __name__ == '__main__':
 				if tempoAteProximaChegada < tempoDeSaida:
 					print(50*'-')
 					if (proximoClasse1 < proximoClasse2):	
-						fila.addFila(utils.Job(1, random.uniform(10,30), contadorIds))
-						print("Job ", contadorIds, " entrou na fila e é da classe 1")
+						if (servidor.getJob().getClasse() == 2):
+							if (servidor.getJob() != None):
+								print ("O Job ", servidor.getJob().getID(), " foi retirado do servidor")
+								jobServidor = servidor.getJob()
+								jobServidor.setTrabalhoResidual(tempoDeSaida - tempoAteProximaChegada)
+								fila.addFila(servidor.getJob())
+							servidor.setJob(utils.Job(1, random.uniform(10,30), contadorIds))
+							job = servidor.getJob()
+							print("Job ", job.getID(), " entrou em servico")
+							tempoJob = job.getTempoDeServico()
+							tempoDeSaida = tempoAteProximaChegada + tempoJob
+							tam = fila.getTamanhoFila()
+							print("Tempo de servico: ", tempoJob)
+							print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
+							print("Classe: ", job.getClasse())
+						else:
+							fila.addFila(utils.Job(1, random.uniform(10,30), contadorIds))
+							print("Job ", contadorIds, " entrou na fila e é da classe 1")
 					else:
 						fila.addFila(utils.Job(2, random.uniform(10,30), contadorIds))
 						print("Job ", contadorIds, " entrou na fila e é da classe 2")

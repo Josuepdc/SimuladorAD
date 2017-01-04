@@ -46,7 +46,7 @@ if __name__ == '__main__':
 
 		if (tempoAteProximaChegada < tempoDeSaida):
 			if (proximoClasse1 < proximoClasse2):
-				if (servidor.getJob != None):
+				if (servidor.getJob() != None):
 					print ("O Job ", servidor.getJob().getID(), " foi retirado do servidor")
 					jobServidor = servidor.getJob()
 					jobServidor.setTrabalhoResidual(tempoDeSaida - tempoAteProximaChegada)
@@ -61,7 +61,7 @@ if __name__ == '__main__':
 				print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
 				print("Classe: ", job.getClasse())
 			else:
-				if (servidor.getJob != None):
+				if (servidor.getJob() != None):
 					print ("O Job ", servidor.getJob().getID(), " foi retirado do servidor")
 					jobServidor = servidor.getJob()
 					jobServidor.setTrabalhoResidual(tempoDeSaida - tempoAteProximaChegada)
@@ -106,7 +106,7 @@ if __name__ == '__main__':
 				if tempoAteProximaChegada < tempoDeSaida:
 					print(50*'-')
 					if (proximoClasse1 < proximoClasse2):
-						if (servidor.getJob != None):
+						if (servidor.getJob() != None):
 							print ("O Job ", servidor.getJob().getID(), " foi retirado do servidor")
 							jobServidor = servidor.getJob()
 							jobServidor.setTrabalhoResidual(tempoDeSaida - tempoAteProximaChegada)
@@ -121,7 +121,7 @@ if __name__ == '__main__':
 						print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
 						print("Classe: ", job.getClasse())
 					else:
-						if (servidor.getJob != None):
+						if (servidor.getJob() != None):
 							print ("O Job ", servidor.getJob().getID(), " foi retirado do servidor")
 							jobServidor = servidor.getJob()
 							jobServidor.setTrabalhoResidual(tempoDeSaida - tempoAteProximaChegada)
