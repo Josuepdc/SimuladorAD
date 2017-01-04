@@ -17,7 +17,7 @@ if __name__ == '__main__':
 	tempoDeSaida = 0
 
 	contadorIds = 0
-	escalonamento = "FCFS"
+	escalonamento = "LCFS"
 	# escalonamento = "LCFS"
 
 	'''=========================== CODIGO =========================== '''
@@ -27,6 +27,10 @@ if __name__ == '__main__':
 	'''======================= Inicializacao ======================== '''
 	proximoClasse1 = random.expovariate(1/lambda1)
 	proximoClasse2 = random.expovariate(1/lambda2)
+
+	print ("***** Classe 1: ", proximoClasse1)
+	print ("***** Classe 2: ", proximoClasse2)
+
 	if (proximoClasse1 < proximoClasse2) :
 		tempoAteProximaChegada += proximoClasse1
 		print(50*'-')
@@ -36,13 +40,13 @@ if __name__ == '__main__':
 		print(50*'-')
 		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada, " e é da classe 2")
 	contadorIds += 1
-	# tempoDeSaida = tempoAteProximaChegada + job.getTempoDeServico()
-	# print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
 
 
 	while True:
-		# if tempoDeSaida > 0:
+
+
 		if (tempoAteProximaChegada < tempoDeSaida):
+
 			if (proximoClasse1 < proximoClasse2):
 				fila.addFila(utils.Job(1, random.uniform(10,30), contadorIds))
 				print("Job ", contadorIds, " entrou na fila e é da classe 1")
@@ -51,6 +55,8 @@ if __name__ == '__main__':
 				print("Job ", contadorIds, " entrou na fila e é da classe 2")
 			tam = fila.getTamanhoFila()
 			print ("Tamanho da Fila: ", tam)
+
+
 		else:
 			while tempoDeSaida != 0:
 				print("Job ", servidor.getJob().getID(), " terminou")
@@ -100,12 +106,23 @@ if __name__ == '__main__':
 				tempoDeSaida = tempoAteProximaChegada + tempoJob
 				print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
 
+
+
 		if (proximoClasse1 < proximoClasse2):
-			proximoClasse1 = random.expovariate(1/lambda1)
-			tempoAteProximaChegada += proximoClasse1	
+			proximoClasse1 = proximoClasse1 + random.expovariate(1/lambda1)
 		else:
-			proximoClasse2 = random.expovariate(1/lambda2)
-			tempoAteProximaChegada += proximoClasse2	
+			proximoClasse2 = proximoClasse2 + random.expovariate(1/lambda2)
+
+		if (proximoClasse1 < proximoClasse2):
+			tempoAteProximaChegada =+ proximoClasse1
+		else:
+			tempoAteProximaChegada =+ proximoClasse2
+
+
+
+		print ("***** Classe 1A: ", proximoClasse1)
+		print ("***** Classe 2A: ", proximoClasse2)
+		
 		print(50*'-')
 		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada)
 		contadorIds += 1
