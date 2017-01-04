@@ -9,7 +9,7 @@ class Job:
 	def __init__(self, classe, tempoDeServico, id):
 		self.classe = classe
 		self.tempoDeServico = tempoDeServico
-		self.trabalhoResidual = 0
+		self.trabalhoResidual = None
 		self.ID = id
 
 	def setTrabalhoResidual(self, trabalhoResidual):
@@ -23,9 +23,9 @@ class Job:
 
 	def getID(self):
 		return self.ID
+		
 	def getTempoDeServico(self):
 		return self.tempoDeServico
-
 
 
 class Fila:
