@@ -23,7 +23,7 @@ class Job:
 
 	def getID(self):
 		return self.ID
-		
+
 	def getTempoDeServico(self):
 		return self.tempoDeServico
 
@@ -34,22 +34,37 @@ class Fila:
 		self.fila = []
 		self.escalonamento = escalonamento
 		if self.escalonamento != "FCFS" and self.escalonamento != "LCFS":
-				raise Exception('Escalonamento n�o definido !!!')
+				raise Exception('Escalonamento não definido !!!')
 		self.contadorClasse1 = 0
 		self.contadorClasse2 = 0
+		self.contadorClasse1Total = 0
+		self.contadorClasse2Total = 0
 
 	def getProximoDaFila(self):
 		if self.escalonamento == "FCFS":
-				return self.fila.pop(0)
+			if self.fila[0].getClasse == 1:
+				contadorClasse1 -=1
+			return self.fila.pop(0)
 		elif self.escalonamento == "LCFS":
-				return self.fila.pop(len(self.fila)-1)
+			if self.fila[0].getClasse == 2:
+				contadorClasse2 -=1
+			return self.fila.pop(len(self.fila)-1)
+
+	def getElementoDaFila(self, posicao):
+		if self.fila[posicao].getClasse == 1:
+				contadorClasse1 -=1
+		if self.fila[posicao].getClasse == 2:
+				contadorClasse2 -=1
+		return self.fila.pop(posicao)
 
 	def addFila(self, job):
 		self.fila.append(job)
 		if job.getClasse() == 1:
 			self.contadorClasse1 += 1
+			self.contadorClasse1Total += 1
 		elif job.getClasse() == 2:
 			self.contadorClasse2 += 1
+			self.contadorClasse2Total += 1
 
 	def getTamanhoFila(self):
 		return len(self.fila)
