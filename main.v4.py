@@ -8,7 +8,7 @@ import utils
 
 if __name__ == '__main__':
 	'''=========================== Parametros iniciais =========================== '''
-	lambda1 = 5
+	lambda1 = 50
 	lambda2 = 5
 	mu = 20
 	# mu2 = 15
@@ -59,7 +59,7 @@ if __name__ == '__main__':
 				if fila.getTamanhoFila() != 0:
 					if fila.getClassQuantidade(1) > 0:
 						for i in range(fila.getTamanhoFila()):
-							if fila.fila[i].getClasse() == 1:
+							if fila.getElemento(i).getClasse() == 1:
 								servidor.setJob(fila.getElementoDaFila(i))
 								job = servidor.getJob()
 								print("Job ", job.getID(), " entrou em servico")
@@ -78,7 +78,7 @@ if __name__ == '__main__':
 						tam = fila.getTamanhoFila()
 						print("Tempo de servico: ", tempoJob)
 						print("Classe: ", job.getClasse())
-					
+
 				print ("Tamanho da Fila: ", tam)
 				if tam < 1:
 					tempoDeSaida = tempoAteProximaChegada + tempoJob
@@ -88,7 +88,7 @@ if __name__ == '__main__':
 					print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
 				if tempoAteProximaChegada < tempoDeSaida:
 					print(50*'-')
-					if (proximoClasse1 < proximoClasse2):	
+					if (proximoClasse1 < proximoClasse2):
 						fila.addFila(utils.Job(1, random.uniform(10,30), contadorIds))
 						print("Job ", contadorIds, " entrou na fila e é da classe 1")
 					else:
@@ -129,7 +129,7 @@ if __name__ == '__main__':
 
 		print ("***** Classe 1A: ", proximoClasse1)
 		print ("***** Classe 2A: ", proximoClasse2)
-		
+
 		print(50*'-')
 		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada)
 		contadorIds += 1

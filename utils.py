@@ -43,19 +43,24 @@ class Fila:
 	def getProximoDaFila(self):
 		if self.escalonamento == "FCFS":
 			if self.fila[0].getClasse == 1:
-				contadorClasse1 -=1
+				self.contadorClasse1 -=1
+			else:
+				self.contadorClasse2 -=1
 			return self.fila.pop(0)
 		elif self.escalonamento == "LCFS":
-			if self.fila[0].getClasse == 2:
-				contadorClasse2 -=1
+			if self.fila[len(self.fila)-1].getClasse == 2:
+				self.contadorClasse2 -=1
+			else:
+				self.contadorClasse1 -=1
 			return self.fila.pop(len(self.fila)-1)
 
 	def getElementoDaFila(self, posicao):
-		if self.fila[posicao].getClasse == 1:
-				contadorClasse1 -=1
-		if self.fila[posicao].getClasse == 2:
-				contadorClasse2 -=1
-		return self.fila.pop(posicao)
+		if self.fila[posicao].getClasse() == 1:
+				self.contadorClasse1 -=1
+		if self.fila[posicao].getClasse() == 2:
+				self.contadorClasse2 -=1
+		job = self.fila.pop(posicao)
+		return job
 
 	def addFila(self, job):
 		self.fila.append(job)
@@ -74,6 +79,9 @@ class Fila:
 			return self.contadorClasse1
 		elif tipoClasse == 2:
 			return self.contadorClasse2
+
+	def getElemento(self, posicao):
+		return self.fila[posicao]
 
 class Servidor:
 	def __init__(self):

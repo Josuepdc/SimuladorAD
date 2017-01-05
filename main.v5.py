@@ -94,7 +94,7 @@ if __name__ == '__main__':
 						tam = fila.getTamanhoFila()
 						print("Tempo de servico: ", tempoJob)
 						print("Classe: ", job.getClasse())
-					
+
 				print ("Tamanho da Fila: ", tam)
 				if tam < 1:
 					tempoDeSaida = tempoAteProximaChegada + tempoJob
@@ -104,7 +104,7 @@ if __name__ == '__main__':
 					print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
 				if tempoAteProximaChegada < tempoDeSaida:
 					print(50*'-')
-					if (proximoClasse1 < proximoClasse2):	
+					if (proximoClasse1 < proximoClasse2):
 						if (servidor.getJob().getClasse() == 2):
 							if (servidor.getJob() != None):
 								print ("O Job ", servidor.getJob().getID(), " foi retirado do servidor")
@@ -161,7 +161,7 @@ if __name__ == '__main__':
 
 		print ("***** Classe 1A: ", proximoClasse1)
 		print ("***** Classe 2A: ", proximoClasse2)
-		
+
 		print(50*'-')
 		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada)
 		contadorIds += 1
