@@ -11,6 +11,9 @@ if __name__ == '__main__':
 	lambda1 = 20
 	lambda2 = 20
 	mu = 20
+
+	numeroIteracoes = 100
+
 	# mu2 = 15
 	tempoAteProximaChegada = 0
 	trabalhoNoServidor = 0
@@ -19,12 +22,12 @@ if __name__ == '__main__':
 	contadorIds = 0
 	escalonamento = "LCFS"
 
-	'''=========================== CODIGO =========================== '''
+	'''======================= Inicializacao ======================== '''
+
 	fila = utils.Fila(escalonamento)
 	servidor = utils.Servidor()
 
-	'''======================= Inicializacao ======================== '''
-	proximoClasse1 = random.expovariate(1/lambda1)	
+	proximoClasse1 = random.expovariate(1/lambda1)
 	proximoClasse2 = random.expovariate(1/lambda2)
 
 	print ("***** Classe 1: ", proximoClasse1)
@@ -33,17 +36,16 @@ if __name__ == '__main__':
 	if (proximoClasse1 < proximoClasse2) :
 		tempoAteProximaChegada += proximoClasse1
 		print(50*'-')
-		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada, " e é da classe 1")
+		print("Tempo ate a proxima chegada da classe 1: ", tempoAteProximaChegada)
 	else:
 		tempoAteProximaChegada += proximoClasse2
 		print(50*'-')
-		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada, " e é da classe 2")
+		print("Tempo ate a proxima chegada da classe 2: ", tempoAteProximaChegada)
 	contadorIds += 1
 
 
-	while True:
-
-
+	# while True:
+	for i in range(numeroIteracoes):
 		if (tempoAteProximaChegada < tempoDeSaida):
 			if (proximoClasse1 < proximoClasse2):
 				if (servidor.getJob() != None):
@@ -80,13 +82,13 @@ if __name__ == '__main__':
 
 
 		else:
-	
+
 
 			while tempoDeSaida != 0:
-			
+
 				print("Job ", servidor.getJob().getID(), " terminou")
 				servidor.setJob(None)
-			
+
 				if fila.getTamanhoFila() != 0:
 					servidor.setJob(fila.getProximoDaFila())
 					job = servidor.getJob()
@@ -181,7 +183,7 @@ if __name__ == '__main__':
 
 		print ("***** Classe 1A: ", proximoClasse1)
 		print ("***** Classe 2A: ", proximoClasse2)
-		
+
 		print(50*'-')
 		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada)
 		contadorIds += 1

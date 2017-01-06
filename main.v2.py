@@ -11,6 +11,9 @@ if __name__ == '__main__':
 	lambda1 = 5
 	lambda2 = 5
 	mu = 20
+
+	numeroIteracoes = 100
+
 	# mu2 = 15
 	tempoAteProximaChegada = 0
 	trabalhoNoServidor = 0
@@ -20,11 +23,11 @@ if __name__ == '__main__':
 	escalonamento = "LCFS"
 	# escalonamento = "LCFS"
 
-	'''=========================== CODIGO =========================== '''
+	'''======================= Inicializacao ======================== '''
+
 	fila = utils.Fila(escalonamento)
 	servidor = utils.Servidor()
 
-	'''======================= Inicializacao ======================== '''
 	proximoClasse1 = random.expovariate(1/lambda1)
 	proximoClasse2 = random.expovariate(1/lambda2)
 
@@ -34,25 +37,23 @@ if __name__ == '__main__':
 	if (proximoClasse1 < proximoClasse2) :
 		tempoAteProximaChegada += proximoClasse1
 		print(50*'-')
-		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada, " e é da classe 1")
+		print("Tempo ate a proxima chegada da classe 1: ", tempoAteProximaChegada)
 	else:
 		tempoAteProximaChegada += proximoClasse2
 		print(50*'-')
-		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada, " e é da classe 2")
+		print("Tempo ate a proxima chegada da classe 2: ", tempoAteProximaChegada)
 	contadorIds += 1
 
 
-	while True:
-
-
+	# while True:
+	for i in range(numeroIteracoes):
 		if (tempoAteProximaChegada < tempoDeSaida):
-
 			if (proximoClasse1 < proximoClasse2):
 				fila.addFila(utils.Job(1, random.uniform(10,30), contadorIds))
-				print("Job ", contadorIds, " entrou na fila e é da classe 1")
+				print("Job ", contadorIds, " da classe 1 entrou na fila")
 			else:
 				fila.addFila(utils.Job(2, random.uniform(10,30), contadorIds))
-				print("Job ", contadorIds, " entrou na fila e é da classe 2")
+				print("Job ", contadorIds, " da classe 2 entrou na fila")
 			tam = fila.getTamanhoFila()
 			print ("Tamanho da Fila: ", tam)
 
@@ -79,22 +80,22 @@ if __name__ == '__main__':
 					print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
 				if tempoAteProximaChegada < tempoDeSaida:
 					print(50*'-')
-					if (proximoClasse1 < proximoClasse2):	
+					if (proximoClasse1 < proximoClasse2):
 						fila.addFila(utils.Job(1, random.uniform(10,30), contadorIds))
-						print("Job ", contadorIds, " entrou na fila e é da classe 1")
+						print("Job ", contadorIds, " da classe 1 entrou na fila")
 					else:
 						fila.addFila(utils.Job(2, random.uniform(10,30), contadorIds))
-						print("Job ", contadorIds, " entrou na fila e é da classe 2")
+						print("Job ", contadorIds, " da classe 2 entrou na fila")
 					tam = fila.getTamanhoFila()
 					print ("Tamanho da Fila: ", tam)
 					break
 			else:
 				if (proximoClasse1 < proximoClasse2):
 					fila.addFila(utils.Job(1, random.uniform(10,30), contadorIds))
-					print("Job ", contadorIds, " entrou na fila e é da classe 1")
+					print("Job ", contadorIds, " da classe 1 entrou na fila")
 				else:
 					fila.addFila(utils.Job(2, random.uniform(10,30), contadorIds))
-					print("Job ", contadorIds, " entrou na fila e é da classe 2")
+					print("Job ", contadorIds, " da classe 2 entrou na fila")
 				servidor.setJob(fila.getProximoDaFila())
 				job = servidor.getJob()
 				print("Job ", job.getID(), " entrou em servico")
@@ -122,7 +123,7 @@ if __name__ == '__main__':
 
 		print ("***** Classe 1A: ", proximoClasse1)
 		print ("***** Classe 2A: ", proximoClasse2)
-		
+
 		print(50*'-')
 		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada)
 		contadorIds += 1
