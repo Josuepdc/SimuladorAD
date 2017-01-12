@@ -6,8 +6,9 @@ Trabalho Final de AD 2016
 import random
 
 class Job:
-	def __init__(self, classe, tempoDeServico, id):
+	def __init__(self, classe, tempoDeChegada, tempoDeServico, id):
 		self.classe = classe
+		self.tempoDeChegada = tempoDeChegada
 		self.tempoDeServico = tempoDeServico
 		self.trabalhoResidual = None
 		self.ID = id
@@ -26,6 +27,9 @@ class Job:
 
 	def getTempoDeServico(self):
 		return self.tempoDeServico
+	
+	def getTempoChegada(self):
+		return self.tempoDeChegada
 
 
 class Fila:
@@ -42,13 +46,13 @@ class Fila:
 
 	def getProximoDaFila(self):
 		if self.escalonamento == "FCFS":
-			if self.fila[0].getClasse == 1:
+			if self.fila[0].getClasse() == 1:
 				self.contadorClasse1 -=1
 			else:
 				self.contadorClasse2 -=1
 			return self.fila.pop(0)
 		elif self.escalonamento == "LCFS":
-			if self.fila[len(self.fila)-1].getClasse == 2:
+			if self.fila[len(self.fila)-1].getClasse() == 2:
 				self.contadorClasse2 -=1
 			else:
 				self.contadorClasse1 -=1
@@ -83,6 +87,13 @@ class Fila:
 	def getElemento(self, posicao):
 		return self.fila[posicao]
 
+	def reset(self):
+		self.fila = []
+		self.contadorClasse1 = 0
+		self.contadorClasse2 = 0
+		self.contadorClasse1Total = 0
+		self.contadorClasse2Total = 0
+
 class Servidor:
 	def __init__(self):
 		self.tempoNoServidor = 0
@@ -101,3 +112,7 @@ class Servidor:
 
 	def setJob(self, job):
 		self.job = job
+
+	def reset(self):
+		self.tempoNoServidor = 0
+		self.job = None
