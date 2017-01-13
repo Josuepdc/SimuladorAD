@@ -9,12 +9,12 @@ import utils
 '''=========================== Parametros iniciais =========================== '''
 lambda1 = 1/5
 lambda2 = 1/5
-numeroIteracoes = 100
+numeroIteracoes = 2000
 numeroRodadas = 10
 escalonamento = "FCFS"
 
 '''=========================== Metricas de Interesse ======================== '''
-T = []
+W = []
 X1 = []
 X2 = []
 N1 = []
@@ -39,7 +39,7 @@ for j in range(numeroRodadas):
 	x2_temp = 0
 	n1_temp = 0
 	n2_temp = 0
-	t_temp = 0
+	w_temp = 0
 	n_saidas = 0
 	total1 = 0
 	total2 = 0
@@ -65,96 +65,61 @@ for j in range(numeroRodadas):
 			if proximoClasse1 < proximoClasse2:
 				fila.addFila(utils.Job(1, tempoAteProximaChegada, random.uniform(1,3), contadorIds))
 				print("Job ", contadorIds, " da classe 1 entrou na fila")
-				n1_temp += 1
-				total1 += 1
-				# if servidor.getJob() != None and servidor.getJob().getClasse == 1:
-				# 	n1_temp += 1
-				# elif servidor.getJob() != None and servidor.getJob().getClasse == 2:
-				# 	n2_temp += 1
 			else:
 				fila.addFila(utils.Job(2, tempoAteProximaChegada, random.uniform(1,3), contadorIds))
 				print("Job ", contadorIds, " da classe 2 entrou na fila")
-				n2_temp += 1
-				total2 += 1
-				# if servidor.getJob() != None and servidor.getJob().getClasse == 1:
-				# 	n1_temp += 1
-				# elif servidor.getJob() != None and servidor.getJob().getClasse == 2:
-				# 	n2_temp += 1
 			tam = fila.getTamanhoFila()
 			print ("Tamanho da Fila: ", tam)
 		else:
 			while tempoDeSaida != 0:
 				print("Job ", servidor.getJob().getID(), " terminou")
-				t_temp += tempoDeSaida - servidor.getJob().getTempoChegada()
+				w_temp += tempoDeSaida - servidor.getJob().getTempoChegada()
 				n_saidas += 1
 				tempoUltimaSaida = tempoDeSaida
-				if servidor.getJob().getClasse() == 1:
-					n1_temp -= 1
-				else:
-					n2_temp -= 1
 				servidor.setJob(None)
-				tempoDeSaida = 9999999999
-				# print ("########TAMANHO: ", fila.getTamanhoFila())
-				if fila.getTamanhoFila() != 0:
-					proxJob = fila.getProximoDaFila()
-					if proxJob != None:
-						servidor.setJob(proxJob)
-						job = servidor.getJob()
-						print("Job ", job.getID(), " entrou em servico")
-						tempoJob = job.getTempoDeServico()
-						trabalhoNoServidor = tempoJob
-						tam = fila.getTamanhoFila()
-						print("Tempo de servico: ", tempoJob)
-						print("Classe: ", job.getClasse())
-						if job.getClasse() == 1:
-							x1_temp += tempoJob
-							totalServico1 += 1
-						else:
-							x2_temp += tempoJob
-							totalServico2 += 1
-						print ("Tamanho da Fila: ", tam)
-						if tam < 1:
-							tempoDeSaida = tempoAteProximaChegada + tempoJob
-							print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
-						else:
-							tempoDeSaida += tempoJob
-							print("Tempo de ## saida do Job ", job.getID(), ": ", tempoDeSaida)
-				if tempoAteProximaChegada < tempoDeSaida:
-					tempoDeSaida = 0
-					print(50*'-')
-					if (proximoClasse1 < proximoClasse2):
-						fila.addFila(utils.Job(1, tempoAteProximaChegada, random.uniform(1,3), contadorIds))
-						print("Job ", contadorIds, " da classe 1 entrou na fila")
-						n1_temp += 1
-						total1 += 1
-						# if servidor.getJob() != None and servidor.getJob().getClasse == 1:
-						# 	n1_temp += 1
-						# elif servidor.getJob() != None and servidor.getJob().getClasse == 2:
-						# 	n2_temp += 1
-					else:
-						fila.addFila(utils.Job(2, tempoAteProximaChegada, random.uniform(1,3), contadorIds))
-						print("Job ", contadorIds, " da classe 2 entrou na fila")
-						n2_temp += 1
-						total2 += 1
-						# if servidor.getJob() != None and servidor.getJob().getClasse == 1:
-						# 	n1_temp += 1
-						# elif servidor.getJob() != None and servidor.getJob().getClasse == 2:
-						# 	n2_temp += 1
+				if fila.getTamanhoFila() == 0 and proximoClasse1 < proximoClasse2:
+					fila.addFila(utils.Job(1, tempoAteProximaChegada, random.uniform(1,3), contadorIds))
+					print("Job ", contadorIds, " da classe 1 entrou na fila")
+				elif fila.getTamanhoFila() == 0 and proximoClasse1 > proximoClasse2:
+					fila.addFila(utils.Job(2, tempoAteProximaChegada, random.uniform(1,3), contadorIds))
+					print("Job ", contadorIds, " da classe 2 entrou na fila")
+				proxJob = fila.getProximoDaFila()
+				if proxJob != None:
+					servidor.setJob(proxJob)
+					job = servidor.getJob()
+					print("Job ", job.getID(), " entrou em servico")
+					tempoJob = job.getTempoDeServico()
+					trabalhoNoServidor = tempoJob
 					tam = fila.getTamanhoFila()
+					print("Tempo de servico: ", tempoJob)
+					print("Classe: ", job.getClasse())
+					if job.getClasse() == 1:
+						x1_temp += tempoJob
+						totalServico1 += 1
+					else:
+						x2_temp += tempoJob
+						totalServico2 += 1
 					print ("Tamanho da Fila: ", tam)
-					break
+					if tam < 1:
+						tempoDeSaida = tempoAteProximaChegada + tempoJob
+						print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
+					else:
+						tempoDeSaida += tempoJob
+						print("Tempo de ## saida do Job ", job.getID(), ": ", tempoDeSaida)
+				#if tempoAteProximaChegada < tempoDeSaida:
+					#tempoDeSaida = 0
+				print(50*'-')
+				tam = fila.getTamanhoFila()
+				print ("Tamanho da Fila: ", tam)
+				break
 
 			else:#primeiroJobNoServidor
 				if (proximoClasse1 < proximoClasse2):
 					fila.addFila(utils.Job(1, tempoAteProximaChegada, random.uniform(1,3), contadorIds))
 					print("Job ", contadorIds, " da classe 1 entrou na fila")
-					n1_temp += 1
-					total1 += 1
 				else:
 					fila.addFila(utils.Job(2, tempoAteProximaChegada, random.uniform(1,3), contadorIds))
 					print("Job ", contadorIds, " da classe 2 entrou na fila")
-					n2_temp += 1
-					total2 += 1
 				servidor.setJob(fila.getProximoDaFila())
 				job = servidor.getJob()
 				print("Job ", job.getID(), " entrou em servico")
@@ -183,11 +148,40 @@ for j in range(numeroRodadas):
 		print(50*'-')
 		print("Tempo ate a proxima chegada: ", tempoAteProximaChegada)
 		contadorIds += 1
-	T.append(t_temp/n_saidas)
-	N1.append((lambda1/(lambda1+lambda2)) * total1)
-	N2.append((lambda2/(lambda1+lambda2)) * total2)
+	while fila.getTamanhoFila() != 0:
+		print("Job ", servidor.getJob().getID(), " terminou")
+		w_temp += tempoDeSaida - servidor.getJob().getTempoChegada()
+		n_saidas += 1
+		tempoUltimaSaida = tempoDeSaida
+		servidor.setJob(None)
+		proxJob = fila.getProximoDaFila()
+		if proxJob != None:
+			servidor.setJob(proxJob)
+			job = servidor.getJob()
+			print("Job ", job.getID(), " entrou em servico")
+			tempoJob = job.getTempoDeServico()
+			trabalhoNoServidor = tempoJob
+			tam = fila.getTamanhoFila()
+			print("Tempo de servico: ", tempoJob)
+			print("Classe: ", job.getClasse())
+			if job.getClasse() == 1:
+				x1_temp += tempoJob
+				totalServico1 += 1
+			else:
+				x2_temp += tempoJob
+				totalServico2 += 1
+			print ("Tamanho da Fila: ", tam)
+			if tam < 1:
+				tempoDeSaida = tempoAteProximaChegada + tempoJob
+				print("Tempo de saida do Job ", job.getID(), ": ", tempoDeSaida)
+			else:
+				tempoDeSaida += tempoJob
+				print("Tempo de ## saida do Job ", job.getID(), ": ", tempoDeSaida)
+		print(50*'-')
+	W.append(w_temp/n_saidas)
 	X1.append(x1_temp/totalServico1)
 	X2.append(x2_temp/totalServico2)
-print ("E[T]: ", sum(T)/numeroRodadas)
-print ("E[N1]: ", sum(N1)/numeroRodadas, "        E[N2]: ", sum(N2)/numeroRodadas)
-print ("E[X1]: ", sum(X1)/numeroRodadas, "        E[X2]: ", sum(X2)/numeroRodadas)
+X = ((lambda1/(lambda1+lambda2)) * sum(X1)/numeroRodadas) + ((lambda1/(lambda1+lambda2)) * sum(X2)/numeroRodadas)
+print ("E[T]: ", sum(W)/numeroRodadas + X)
+print("E[N]: ", (lambda1+lambda2)*(sum(W)/numeroRodadas + X))
+print("E[X]: ", X)
